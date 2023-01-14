@@ -55,7 +55,7 @@ export default function Appbar(props: Props) {
                       textDecoration: "none",
                     }}
                   >
-                    Made Ramayasa - Braviest Programmer
+                    Made Ramayasa - Bravest Programmer
                   </Typography>
                 </Grid>
               </Grid>

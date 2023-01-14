@@ -5,6 +5,6 @@ namespace Application.Interface
 {
     public interface ICalculate
     {
-        Task<double> Result(Person personA, Person personB);
+        Task<double> ResultAsync(Person personA, Person personB);
     }
 }

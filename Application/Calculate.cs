@@ -6,17 +6,17 @@ namespace Application
 {
     public class Calculate : ICalculate
     {
-        public async Task<double> Result(Person personA, Person personB)
+        public async Task<double> ResultAsync(Person personA, Person personB)
         {
             if (personA.BornOfYear < 1 || personB.BornOfYear < 1)
                 return -1;
 
-            var resultPersonA = Task.Run(() => NumberOfKilledRecursive(1, 1, 2, 0));
-            var resultPersonB = Task.Run(() => NumberOfKilledRecursive(1, 1, 4, 0));
+            var resultPersonA = Task.Run(() => NumberOfKilledRecursive(1, 1, personA.BornOfYear, 0));
+            var resultPersonB = Task.Run(() => NumberOfKilledRecursive(1, 1, personB.BornOfYear, 0));
 
-            await Task.WhenAll(resultPersonA, resultPersonB);
+            double[] result = await Task.WhenAll(resultPersonA, resultPersonB);
 
-            return (resultPersonA.Result + resultPersonB.Result) / 2;
+            return (result[0] + result[1]) / 2;
         }
 
         private static double NumberOfKilledRecursive(int first, int second, int n, int sum)

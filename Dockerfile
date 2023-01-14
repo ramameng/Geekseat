@@ -11,7 +11,7 @@ RUN dotnet restore "Geekseat.sln"
 
 # copy everything else build
 COPY . .
-WORKDIR /the/workdir/path
+WORKDIR /app
 RUN dotnet publish -c Release -o out
 
 # build a runtime image

@@ -20,7 +20,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<double>> Calculate(Villages villages)
         {
-            return await _calculate.Result(villages.PersonA, villages.PersonB);
+            return await _calculate.ResultAsync(villages.PersonA, villages.PersonB);
         }
     }
 }
