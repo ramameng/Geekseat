@@ -62,6 +62,7 @@ export function NumberInputField(props: Props) {
       {...props}
       id={props.name}
       error={meta.touched && !!meta.error}
+      helperText={meta.touched && meta.error ? meta.error : props.helperText}
       fullWidth
       InputProps={
         props.andorment

@@ -64,13 +64,13 @@ const requests = {
   del: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 };
 
-const Menus = {
+const Calulates = {
   calculate: (villages: VillagesFormValues) =>
     requests.post<unknown>("/calculates", villages),
 };
 
 const agent = {
-  Menus,
+  Calulates,
 };
 
 export default agent;

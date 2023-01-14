@@ -17,11 +17,10 @@ import agent from "../app/api/agent";
 import { VillagesFormValues } from "../app/model/villages";
 import CloseIcon from "@mui/icons-material/Close";
 import { NumberInputField } from "../app/form/NumberInputField";
+import * as Yup from "yup";
 
 export default function Main() {
-  const [values, setValues] = useState<VillagesFormValues>(
-    new VillagesFormValues()
-  );
+  const [values] = useState<VillagesFormValues>(new VillagesFormValues());
   const [state, setState] = useState({
     open: false,
     message: "",
@@ -30,6 +29,25 @@ export default function Main() {
   const [result, setResult] = useState({
     open: false,
     message: "",
+  });
+
+  const schema = Yup.object({
+    personA: Yup.object().shape({
+      ageOfDeath: Yup.number()
+        .typeError("Age of death is must be a number.")
+        .required("Age of death is required."),
+      yearOfDeath: Yup.number()
+        .typeError("Year of death is must be a number.")
+        .required("Year of death is required."),
+    }),
+    personB: Yup.object().shape({
+      ageOfDeath: Yup.number()
+        .typeError("Age of death is must be a number.")
+        .required("Age of death is required."),
+      yearOfDeath: Yup.number()
+        .typeError("Year of death is must be a number.")
+        .required("Year of death is required."),
+    }),
   });
 
   const handleClose = (
@@ -58,7 +76,7 @@ export default function Main() {
 
   const calculate = async (values: VillagesFormValues) => {
     try {
-      const result = await agent.Menus.calculate(values);
+      const result = await agent.Calulates.calculate(values);
       return result;
     } catch (error) {
       throw error;
@@ -82,9 +100,19 @@ export default function Main() {
       });
   };
 
-  const handleReset = (resetForm: () => void) => {
+  const handleReset = (
+    resetForm: () => void,
+    setFieldValue: (
+      field: string,
+      value: any,
+      shouldValidate?: boolean | undefined
+    ) => void
+  ) => {
+    setFieldValue("personA.ageOfDeath", Number.NaN);
+    setFieldValue("personA.yearOfDeath", Number.NaN);
+    setFieldValue("personB.ageOfDeath", Number.NaN);
+    setFieldValue("personB.yearOfDeath", Number.NaN);
     resetForm();
-    setValues(new VillagesFormValues());
     setResult({
       open: false,
       message: "",
@@ -97,11 +125,12 @@ export default function Main() {
         Person Killed
       </Typography>
       <Formik
+        validationSchema={schema}
         enableReinitialize
         initialValues={values}
         onSubmit={(values) => handleFormSubmit(values)}
       >
-        {({ handleSubmit, resetForm }) => (
+        {({ handleSubmit, resetForm, setFieldValue }) => (
           <Form onSubmit={handleSubmit} autoComplete="off">
             <Grid container alignItems="center" spacing={2}>
               <Grid item xs>
@@ -159,7 +188,7 @@ export default function Main() {
                   </Button>
                   <Button
                     variant="contained"
-                    onClick={() => handleReset(resetForm)}
+                    onClick={() => handleReset(resetForm, setFieldValue)}
                   >
                     Reset
                   </Button>

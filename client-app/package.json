@@ -2,6 +2,7 @@
   "name": "client-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ramameng.github.io",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -21,11 +22,13 @@
     "react-number-format": "^4.9.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "move build ../API/wwwroot",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -46,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
   }
 }
